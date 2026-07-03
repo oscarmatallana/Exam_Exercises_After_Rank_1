@@ -1,16 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   repeat_alpha.c                                     :+:      :+:    :+:   */
+/*   repeat_alpha_version2.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omatalla <omatalla@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/01 15:21:11 by omatalla          #+#    #+#             */
-/*   Updated: 2026/07/03 17:18:34 by omatalla         ###   ########.fr       */
+/*   Updated: 2026/07/03 18:21:19 by omatalla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
+
+int	get_repetitions(char c)
+{
+	if (c >= 'a' && c <= 'z')
+		return (c - 'a' + 1);
+	if (c >= 'A' && c <= 'Z')
+		return (c - 'A' + 1);
+	return (0);
+}
 
 int	main(int argc, char **argv)
 {
@@ -26,23 +35,13 @@ int	main(int argc, char **argv)
 	i = 0;
 	while (argv[1][i] != '\0')
 	{
-		if (argv[1][i] >= 'a' && argv[1][i] <= 'z')
+		repetitions = get_repetitions(argv[1][i]);
+		if (repetitions > 0)
 		{
-			repetitions = argv[1][i] - 'a' + 1;
 			j = 0;
 			while (j < repetitions)
 			{
-				write (1, &argv[1][i], 1);
-				j++;
-			}
-		}
-		else if (argv[1][i] >= 'A' && argv[1][i] <= 'Z')
-		{
-			repetitions = argv[1][i] - 'A' + 1;
-			j = 0;
-			while (j < repetitions)
-			{
-				write (1, &argv[1][i], 1);
+				write(1, &argv[1][i], 1);
 				j++;
 			}
 		}
@@ -50,6 +49,6 @@ int	main(int argc, char **argv)
 			write(1, &argv[1][i], 1);
 		i++;
 	}
-	write (1, "\n", 1);
+	write(1, "\n", 1);
 	return (0);
 }
